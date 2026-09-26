@@ -28,7 +28,7 @@ class SplashActivity : BaseSplashActivity(), CancelAdapt {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Check if launched via secret code or custom scheme FIRST
         val launchedFromSecretCode = intent?.getBooleanExtra("launch_from_secret_code", false) == true
-        val launchedFromScheme = intent?.action == Intent.ACTION_VIEW && intent?.data?.scheme == "yourapp"
+        val launchedFromScheme = intent?.action == Intent.ACTION_VIEW && intent?.data?.scheme == "smsforwarder"
         
         if (!launchedFromSecretCode && !launchedFromScheme) {
             finish()
