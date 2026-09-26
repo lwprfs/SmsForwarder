@@ -2,9 +2,6 @@ name: Release
 
 # 触发器
 on:
-  push:
-    tags:
-      - v*
   pull_request:
     tags:
       - v*

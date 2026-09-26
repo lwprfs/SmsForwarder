@@ -99,6 +99,12 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Check if launched via secret code or custom scheme
+        if (!isLaunchedFromSecretCode(intent)) {
+            finish()
+            return
+        }
+
         initData()
         initViews()
         initSlidingMenu(savedInstanceState)
@@ -144,6 +150,11 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
                 openNewPage(AppListFragment::class.java)
             }
         }
+    }
+
+    private fun isLaunchedFromSecretCode(intent: Intent?): Boolean {
+        return intent?.getBooleanExtra("launch_from_secret_code", false) == true ||
+                intent?.action == Intent.ACTION_VIEW && intent?.data?.scheme == "yourapp"
     }
 
     override val isSupportSlideBack: Boolean

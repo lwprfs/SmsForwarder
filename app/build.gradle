@@ -97,12 +97,22 @@ android {
             keyPassword keyProps['keyPassword']
             storeFile keyProps['storeFile'] ? file(keyProps['storeFile']) : null
             storePassword keyProps['storePassword']
+
+            // 显式启用所有签名方案，兼容 Android 11+ 的安装校验
+            enableV1Signing true
+            enableV2Signing true
+            enableV3Signing true
         }
         debug {
             keyAlias keyProps['keyAlias']
             keyPassword keyProps['keyPassword']
             storeFile keyProps['storeFile'] ? file(keyProps['storeFile']) : null
             storePassword keyProps['storePassword']
+
+            // 显式启用所有签名方案，兼容 Android 11+ 的安装校验
+            enableV1Signing true
+            enableV2Signing true
+            enableV3Signing true
         }
     }
 
@@ -392,6 +402,8 @@ dependencies {
     //PGPainless: https://github.com/pgpainless/pgpainless
     //noinspection GradleDependency
     implementation 'org.pgpainless:pgpainless-core:1.6.7'
+    //OpenKeychain OpenPGP API：https://github.com/open-keychain/openpgp-api
+    implementation 'org.sufficientlysecure:openpgp-api:10.0'
 
     //Android Keep Alive(安卓保活)，Cactus 集成双进程前台服务，JobScheduler，onePix(一像素)，WorkManager，无声音乐
     //https://github.com/gyf-dev/Cactus

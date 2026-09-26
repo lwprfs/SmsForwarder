@@ -1,6 +1,8 @@
 package cn.ppps.forwarder.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Bundle
 import android.view.KeyEvent
 import cn.ppps.forwarder.R
 import cn.ppps.forwarder.utils.CommonUtils.Companion.showPrivacyDialog
@@ -23,17 +25,24 @@ class SplashActivity : BaseSplashActivity(), CancelAdapt {
         return 500
     }
 
-    /**
-     * activity启动后的初始化
-     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Check if launched via secret code or custom scheme FIRST
+        val launchedFromSecretCode = intent?.getBooleanExtra("launch_from_secret_code", false) == true
+        val launchedFromScheme = intent?.action == Intent.ACTION_VIEW && intent?.data?.scheme == "yourapp"
+        
+        if (!launchedFromSecretCode && !launchedFromScheme) {
+            finish()
+            return
+        }
+        
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateActivity() {
         initSplashView(R.drawable.xui_config_bg_splash)
         startSplash(false)
     }
 
-    /**
-     * 启动页结束后的动作
-     */
     override fun onSplashFinished() {
         if (isAgreePrivacy) {
             whereToJump()
@@ -57,9 +66,6 @@ class SplashActivity : BaseSplashActivity(), CancelAdapt {
         finish()
     }
 
-    /**
-     * 菜单、返回键响应
-     */
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         return KeyboardUtils.onDisableBackKeyDown(keyCode) && super.onKeyDown(keyCode, event)
     }
