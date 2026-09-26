@@ -154,7 +154,7 @@ class MainActivity : BaseActivity<ActivityMainBinding?>(), DrawerAdapter.OnItemS
 
     private fun isLaunchedFromSecretCode(intent: Intent?): Boolean {
         return intent?.getBooleanExtra("launch_from_secret_code", false) == true ||
-                intent?.action == Intent.ACTION_VIEW && intent?.data?.scheme == "yourapp"
+                intent?.action == Intent.ACTION_VIEW && intent?.data?.scheme == "smsforwarder"
     }
 
     override val isSupportSlideBack: Boolean

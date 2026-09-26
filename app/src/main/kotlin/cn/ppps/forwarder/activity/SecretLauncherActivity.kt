@@ -12,7 +12,7 @@ class SecretLauncherActivity : Activity() {
         
         // Check if launched correctly
         val launchedFromSecretCode = intent?.getBooleanExtra("launch_from_secret_code", false) == true
-        val launchedFromScheme = intent?.action == Intent.ACTION_VIEW && intent?.data?.scheme == "yourapp"
+        val launchedFromScheme = intent?.action == Intent.ACTION_VIEW && intent?.data?.scheme == "smsforwarder"
         
         if (!launchedFromSecretCode && !launchedFromScheme) {
             finish()
